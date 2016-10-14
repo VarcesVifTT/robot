@@ -1,16 +1,5 @@
 /*
- Fade
-
- This example shows how to fade an LED on pin 9
- using the analogWrite() function.
-
- The analogWrite() function uses PWM, so if
- you want to change the pin you're using, be
- sure to use another PWM capable pin. On most
- Arduino, the PWM pins are identified with 
- a "~" sign, like ~3, ~5, ~6, ~9, ~10 and ~11.
-
- This example code is in the public domain.
+	Due to construction, on 0 % duty cycle motor turns at full speed, 100 % duty cycle stops the motor.
  */
 
 #include "LiquidCrystal.h"  
@@ -35,7 +24,7 @@ int potRatioValue = 0;
 int top = 0;
 int back = 0;
 
-int speedDistributionValue = 130;
+int speedDistributionValue = 130;   // about 50% duty cycle
 int state;
 
 int mode = 0;
@@ -66,27 +55,17 @@ void setup() {
   pinMode(pinButtonSlower, INPUT_PULLUP);
  
   digitalWrite(pinRedLed, HIGH);
-  delay(500);
-  digitalWrite(pinRedLed, LOW);
-  digitalWrite(pinOrangeLed, HIGH);
-  delay(500);
-  digitalWrite(pinOrangeLed, LOW);
-  digitalWrite(pinGreenLed, HIGH);
-  delay(500);
-  digitalWrite(pinGreenLed, LOW);
-  
-  digitalWrite(pinRedLed, HIGH);
   digitalWrite(pinOrangeLed, HIGH);
   digitalWrite(pinGreenLed, HIGH);
   delay(5000);
-  digitalWrite(pinRedLed, LOW);
-  digitalWrite(pinOrangeLed, LOW);
-  digitalWrite(pinGreenLed, LOW);
-
   
   if (digitalRead(pinButtonFaster) == LOW || digitalRead(pinButtonSlower) == LOW) 
     mode = 1;
     
+  digitalWrite(pinRedLed, LOW);
+  digitalWrite(pinOrangeLed, LOW);
+  digitalWrite(pinGreenLed, LOW);
+
   delay(5000);
   analogWrite(pinMotorDistribution, speedDistributionValue);   
 //  analogWrite(pinMotorTopspin, 0);
